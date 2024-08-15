@@ -12,7 +12,5 @@ because without utf it presented buffer data */
 let read = fs.readFileSync("sync.txt", "utf-8");
 console.log(read);
 
-
-
-
-
+// it will deleted the file
+fs.unlinkSync("sync.txt");
