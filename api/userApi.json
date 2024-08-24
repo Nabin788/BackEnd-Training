@@ -1,0 +1,144 @@
+[
+    {
+        "id": 1,
+        "name": "Samsung Galaxy S23",
+        "category": "mobile",
+        "memory": "27,999 of 6GB RAM + 128GB storage",
+        "memory1": "29,999 of 8GB RAM + 128GB storage",
+        "price": "27,999",
+        "price1": "29,999",
+        "description": "6.1-inch display, Snapdragon 8 Gen 2 chipset, 128GB storage, and 5G capability.",
+        "image": "./images/mobile-img/redmi 10 pro.jpg",
+        "stock": 8
+    },
+    {
+        "id": 2,
+        "name": "Samsung Galaxy A34",
+        "category": "mobile",
+        "memory": "45,999 of 8GB RAM + 128GB storage",
+        "price" : "45,999",
+        "description": "6.6-inch FHD+ display, 64MP main camera, and a 5,000mAh battery with 33W fast charging.",
+        "image": "./images/mobile-img/redmi 10 pro.jpg",
+        "stock": 10
+    },
+    {
+        "id": 3,
+        "name": "Samsung Galaxy A14",
+        "category": "mobile",
+        "memory": "20,999 of 4GB RAM + 64GB storage",
+        "price": "20,999",
+        "description": "6.6-inch FHD+ display, 50MP main camera, and an octa-core processor.",
+        "image": "./images/mobile-img/redmi 10 pro.jpg",
+        "stock": 12
+    },
+    {
+        "id": 4,
+        "name": "Samsung Galaxy A14 5G",
+        "category": "mobile",
+        "memory": "27,999 of 6GB RAM + 128GB storage",
+        "memory1": "29,999 of 8GB RAM + 128GB storage",
+        "price": "27,999",
+        "price1": "29,999",
+        "description": "6.72-inch display, 64MP main camera, MediaTek Helio G88 chipset, and 5,000mAh battery with 33W fast charging.",
+        "image": "./images/mobile-img/redmi 10 pro.jpg",
+        "stock": 14
+    },
+    {
+        "id": 5,
+        "name": "Realme C55",
+        "category": "mobile",
+        "memory": "15,499 of 6GB RAM + 64GB storage",
+        "price": "15,499",
+        "description": "6.72-inch display, 64MP AI camera, and 5,000mAh battery with 33W charging.",
+        "image": "./images/mobile-img/redmi 10 pro.jpg",
+        "stock": 16
+    },
+    {
+        "id": 6,
+        "name": "Infinix Hot 30",
+        "category": "mobile",
+        "memory": "18,999 of 8GB RAM + 256GB storage",
+        "price": "18,999",
+        "description": "6.78-inch display, 48MP main camera, and 6,000mAh battery.",
+        "image": "./images/mobile-img/redmi 10 pro.jpg",
+        "stock": 18
+    },
+    {
+        "id": 7,
+        "name": "Infinix Hot 30i",
+        "category": "mobile",
+        "memory": "14,999 of 4GB RAM + 64GB storage",
+        "price": "14,499",
+        "description": "6.52-inch display, 13MP dual-camera setup, and 5,000mAh battery.",
+        "image": "./images/mobile-img/redmi 10 pro.jpg",
+        "stock": 20
+    },
+    {
+        "id": 8,
+        "name": "Realme 11 Pro",
+        "category": "mobile",
+        "memory": "47,999 of 8GB RAM + 256GB storage",
+        "price": "47,999",
+        "description": "6.55-inch Super AMOLED display, 108MP quad-camera system, Snapdragon 870 chipset, and 4,500mAh battery with fast charging.",
+        "image": "./images/mobile-img/redmi 10 pro.jpg",
+        "stock": 22
+    },
+    {
+        "id": 9,
+        "name": "Xiaomi Redmi Note 13 Pro+",
+        "category": "mobile",
+        "memory": "45,999 of 8GB RAM + 256GB storage",
+        "memory1": "50,999 of 12GB RAM + 512GB storage",
+        "price": "45,999",
+        "price1": "50,999",
+        "description": "6.67-inch display, 64MP quad-camera setup, and MediaTek Dimensity 920 processor.",
+        "image": "./images/mobile-img/redmi 10 pro.jpg",
+        "stock": 10
+    },
+    {
+        "id": 10,
+        "name": "Xiaomi Redmi 12",
+        "category": "mobile",
+        "memory": "17,999 of 6GB RAM + 128GB storage",
+        "memory1": "20,999 of 8GB RAM + 256GB storage",
+        "price": "17,999",
+        "price1": "20,999",
+        "description": "6.53-inch display, 50MP main camera, and MediaTek Helio G35 chipset.",
+        "image": "./images/mobile-img/redmi 10 pro.jpg",
+        "stock": 10
+    },
+    {
+        "id": 11,
+        "name": "Xiaomi Redmi Note 12 4G",
+        "category": "mobile",
+        "memory": "16,999 of 4GB RAM + 64GB storage",
+        "memory1": "20,999 of 6GB RAM + 128GB storage",
+        "price": "16,999",
+        "price1": "20,999",
+        "description": "6.53-inch display, 48MP main camera, and Snapdragon 662 processor.",
+        "image": "./images/mobile-img/redmi 10 pro.jpg",
+        "stock": 10
+    },
+    {
+        "id": 12,
+        "name": "Xiaomi Poco X5 Pro",
+        "category": "mobile",
+        "memory": "44,999 of 8GB RAM + 256GB storage",
+        "price": "44,999",
+        "description": "6.67-inch display, 64MP quad-camera system, and MediaTek Dimensity 1100 chipset.",
+        "image": "./images/mobile-img/redmi 10 pro.jpg",
+        "stock": 5
+    },
+    {
+        "id": 13,
+        "name": "Xiaomi Poco X6",
+        "category": "mobile",
+        "memory": "31,999 of 8GB RAM + 256GB storage",
+        "memory1": "34,999 of 12GB RAM + 256GB storage",
+        "price": "31,999",
+        "price1": "34,999",
+        "description": "6.67-inch display, 48MP quad-camera setup, and Snapdragon 860 processor.",
+        "image": "./images/mobile-img/redmi 10 pro.jpg",
+        "stock": 3
+    }
+]
