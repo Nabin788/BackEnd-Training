@@ -30,7 +30,6 @@ const displayDocument = async () => {
     app.get("/", (req, res) => {
         res.send(document);
     });
-
 }
 displayDocument()
 
