@@ -15,7 +15,7 @@ mongoose.connect("mongodb://localhost:27017/bioInfo")
 // create a schema for what type of value should hold the field key
 const dataType = new mongoose.Schema({
     name: String,
-    age: BigInt,
+    age: Number,
     address: String,
     active: Boolean
 });
@@ -28,7 +28,7 @@ const BioData = new mongoose.model("BioData", dataType);
 //  insert field on collection and create document
 const bioField = new BioData({
     name: "nabin",
-    age: 24,
+    age: 23,
     address: "Bhalubang",
     active: true
 });
