@@ -2,30 +2,38 @@ const express = require("express");
 const mongose = require("mongoose");
 const app = express();
 
-mongose.connect("mongodb://localhost:27017/multiCollection")
+mongose.connect("mongodb://localhost:27017/bioInfo")
     .then(() => {
         console.log("Database connection is sucessfull");
     }).catch((err) => {
         console.error("Database connection is failed", err);
     });
 
+    const schema = new mongose.Schema({
+        name: String
+    });
+
 // create a collection
-const multiCol = new mongose.model("multiCol", new mongose.Schema);
+const biodata = new mongose.model("biodata", schema);
 
 
 const displayDocument = async () => {
 
     // to delete document
-    const deletedocument = await multiCol.deleteOne({ name: "Siwan Poudel" });
+    const deletedocument = await biodata.deleteOne({ name: "Siwan Poudel" });
     console.log(deletedocument);
 
     // to delete all document
-    const deleteAlldocument = await multiCol.deleteMany({});
+    const deleteAlldocument = await biodata.deleteMany({});
     console.log(deleteAlldocument);
 
     // to read all document
-    const document = await multiCol.find();
+    const document = await biodata.find();
     console.log(document);
+
+    // to delete specific field in document we can use either deleteOne or deleteMany
+    const deleteField = await biodata.updateOne({name: "basanta"}, {$unset: {name: ""}})
+    console.log(deleteField);
 
     app.get("/", (req, res) => {
         res.send(document);
