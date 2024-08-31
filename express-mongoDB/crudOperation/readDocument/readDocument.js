@@ -16,15 +16,27 @@ const biodata = new mongose.model("biodata", new mongose.Schema);
 const displayDocument = async () => {
     // to read all document
     const document = await biodata.find();
-    // console.log(document);
+    console.log(document);
 
     // to read specific document
     const specificDoc = await biodata.find({name: "Siwan Poudel"});
-    // console.log(specificDoc);
+    console.log(specificDoc);
 
     // to read specific field
     const specifiField = await biodata.findOne({name: "nabin"}, {name:1});
     console.log(specifiField);
+
+    // to read the conditon field like if the value is greater then other field
+    const gtField = await biodata.find({age : {$gt : 23}})
+    console.log(gtField);
+    
+    // to read the condition field like if the value is less then other
+    const lsField = await biodata.find({age: {$lt : 24}});
+    console.log(lsField);
+
+    // to get the multiple field 
+    const mulField = await biodata.find({name: {$in : ["madhuSudan","basanta"]}})
+    console.log(mulField);
     
 
 
