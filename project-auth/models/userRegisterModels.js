@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+const database = require("../database/database.js");
 const bcrypt = require("bcrypt");
-
+database();
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -32,17 +33,21 @@ const userSchema = new mongoose.Schema({
 userSchema.pre("save", async function (next) {
     try {
         if (this.isModified("password")) {
+            if (this.password != this.confirmPassword) {
+                throw new Error("confirm password not match");
+            }
             this.password = await bcrypt.hash(this.password, 10);
             this.confirmPassword = await bcrypt.hash(this.confirmPassword, 10);
+
             this.confirmPassword = undefined;
+            next();
         }
-        next();
+
     } catch (error) {
-        console.error(error);
+        next(error);
     }
 });
 
-const UserModel = mongoose.model("UserModel", userSchema);
+const UserModel = new mongoose.model("UserModel", userSchema);
 
-
-module.exports = {userSchema, UserModel};
+module.exports = UserModel;
