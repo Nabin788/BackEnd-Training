@@ -6,7 +6,7 @@ const authMiddleware = require("../middleware/authMiddleware.js");
 const router = express.Router();
 
 router.post("/register", userRegisterController);
-router.get("/login", userLoginController);
+router.post("/login", userLoginController);
 router.put("/update",authMiddleware, userChangedPassword);
 
 module.exports = router;

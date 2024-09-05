@@ -37,8 +37,6 @@ userSchema.pre("save", async function (next) {
                 throw new Error("confirm password not match");
             }
             this.password = await bcrypt.hash(this.password, 10);
-            this.confirmPassword = await bcrypt.hash(this.confirmPassword, 10);
-
             this.confirmPassword = undefined;
             next();
         }
