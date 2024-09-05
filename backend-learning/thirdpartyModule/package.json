@@ -1,0 +1,15 @@
+{
+  "name": "thirdpartymodule",
+  "version": "1.0.0",
+  "main": "npm.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nabin",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "validator": "^13.12.0"
+  }
+}
