@@ -23,9 +23,8 @@ const userController = async (req, res) => {
         console.log("user registration sucessfull");
         
     } catch (error) {
-        res.status(401).send({ message: "Failed to process registration", error: error.message });
-        console.log(error);
-
+        res.status(400).send({ message: "Failed to process registration", error: error.message });
+        console.log({message: error.message } );
     }
 };
 
