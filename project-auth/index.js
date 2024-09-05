@@ -7,7 +7,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use("/register", userRouter);
+app.use("/api", userRouter);
 
 app.listen(port, () => {
     console.log("server is running on:", port);
