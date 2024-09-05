@@ -12,8 +12,7 @@ const authMiddleware = async (req, res, next) => {
             return res.status(401).send({ message: "failed to access, unauthorized user" });
         }
 
-        // if user authorized
-        // get token from header
+        // if user authorized get token from header
         const getTokens = authorization.startsWith("Bearer");
 
         // if the token not get halt the process
