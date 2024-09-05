@@ -1,4 +1,5 @@
 const UserModel = require("../models/userRegisterModels.js");
+const jwt = require("jsonwebtoken");
 
 const userController = async (req, res) => {
 
@@ -19,7 +20,8 @@ const userController = async (req, res) => {
 
         // Save the document in the database
         await userDoc.save();
-        res.status(201).send("User registration successful");
+        const token = jwt.sign({id: userDoc.id}, process.env.SECRET_KEY, {expiresIn: "5d"});
+        res.status(201).send({ message: "User registration successful", token: token});
         console.log("user registration sucessfull");
         
     } catch (error) {
