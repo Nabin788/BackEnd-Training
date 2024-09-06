@@ -1,7 +1,9 @@
 const UserModel = require("../models/userRegisterModels.js");
+const mailConfig = require("../nodemailer/config.js");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
+
 
 const sendPasswordLink = async (req, res) => {
     try {
@@ -13,15 +15,27 @@ const sendPasswordLink = async (req, res) => {
         }
         // get the user document from database if the user is valid
         const userEmail = await UserModel.findOne({ email: email });
+
         const id = userEmail._id;
         // generate new token from user email id and secret key
         const newToken = jwt.sign({ id: userEmail._id }, process.env.SECRET_KEY, { expiresIn: '10m' });
 
         // send reset link to user email address
         const link = `http://127.0.0.1:300/api/user/reset/${id}/${newToken}`;
+        const mailData = {
+            from: process.env.EMAIL_FROM,
+            to: userEmail.email,
+            subject: "Testing mail",
+            text: "Hello",
+            html: `<h1><a href=${link}>Click the link to reset your password<a></h1> ?`
+        }
+        mailConfig.sendMail(mailData, (err, sucess) => {
+            if (err) {
+                return res.status(404).send({ message: `failed to send email` });
+            }
+            res.status(250).send("Sucessfully send link to your email address. plese check your email and reset the password");
+        });
 
-        res.status(203).send("Sucessfully send link to your email address. plese check your email and reset the password");
-        console.log(link);
     } catch (error) {
         res.status(203).send("failed to send reset link, Plese enter valid email address");
         console.error(error);
@@ -48,8 +62,8 @@ const changePassword = async (req, res) => {
 
             const hashPassword = await bcrypt.hash(password, 10);
 
-            const dbPassowrd = await UserModel.find({_id: id});
-            if(dbPassowrd !== hashPassword){
+            const dbPassowrd = await UserModel.find({ _id: id });
+            if (dbPassowrd !== hashPassword) {
                 return res.status(400).send("Weak Password, use other password.");
             }
 
