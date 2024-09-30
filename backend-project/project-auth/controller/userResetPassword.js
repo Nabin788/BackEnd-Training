@@ -8,14 +8,14 @@ require("dotenv").config();
 const sendPasswordLink = async (req, res) => {
     try {
         // get the user email for password reset
-        const { email } = req.body;
+        const { email, name } = req.body;
         // check if the user is valid or not
         if (!email) {
             return res.status(401).send("email not found");
         }
         // get the user document from database if the user is valid
         const userEmail = await UserModel.findOne({ email: email });
-
+        
         const id = userEmail._id;
         // generate new token from user email id and secret key
         const newToken = jwt.sign({ id: userEmail._id }, process.env.SECRET_KEY, { expiresIn: '10m' });
@@ -23,16 +23,21 @@ const sendPasswordLink = async (req, res) => {
         // send reset link to user email address
         const link = `http://127.0.0.1:300/api/user/reset/${id}/${newToken}`;
         const mailData = {
-            from: process.env.EMAIL_FROM,
-            to: userEmail.email,
+            from: `${userEmail.email} ${name}`,
+            to: process.env.EMAIL_TO,
             subject: "Testing mail",
             text: "Hello",
-            html: `<h1><a href=${link}>Click the link to reset your password<a></h1> ?`
+            html: `<h1><a href=${link}>Click the link to reset your password<a></h1> ?`,
+            replyTo: userEmail.email
         }
         mailConfig.sendMail(mailData, (err, sucess) => {
             if (err) {
+                console.error(err);
+                
                 return res.status(404).send({ message: `failed to send email` });
             }
+            console.log(sucess);
+            
             res.status(250).send("Sucessfully send link to your email address. plese check your email and reset the password");
         });
 
