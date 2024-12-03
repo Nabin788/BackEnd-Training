@@ -1,4 +1,5 @@
 const userModels = require("../model/userSchema");
+const bcrypt = require("bcrypt");
 
 const userRegister = async (req, res) => {
     try {
@@ -10,14 +11,22 @@ const userRegister = async (req, res) => {
             });
         }
         const existingUser = await userModels.findOne({ email });
+
         if (existingUser) {
             return res.status(500).send({
                 sucess: false,
                 message: "User already present in this email. Please try another email address"
             });
         }
-
-        const user = await userModels.create({ userName, email, password, address, phone });
+        const hashPassword = await bcrypt.hash(password, 10);
+        const user = await userModels.create(
+            {
+                userName,
+                email,
+                password: hashPassword,
+                address,
+                phone
+            });
         res.status(201).send({
             sucess: true,
             message: "User Created sucessfully",
@@ -43,14 +52,17 @@ const userLogin = async (req, res) => {
                 message: "Please provide required information"
             });
         }
-        const userEmail = await userModels.findOne({ email });
-        const userPassword = await userModels.findOne({ password });
+        const userInfo = await userModels.findOne({ email });
+        const userEmail = userInfo.email;
+        const userPassword = userInfo.password;
 
         if (!userEmail) {
             return res.status(500).send({ message: "User does not exit from given information." });
         }
-        
-        if (!userPassword) {
+
+        const checkPassword = await bcrypt.compare(password, userPassword);
+
+        if (!checkPassword) {
             return res.status(500).send({ message: "password not match" });
         }
         res.status(200).send("User login sucessfully");
