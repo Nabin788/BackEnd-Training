@@ -15,7 +15,6 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 app.use("/user", authRoutes);
-app.use("/user", authRoutes);
 
 app.get("/", (req,res) => {
     res.send("Hello restaurent users");
