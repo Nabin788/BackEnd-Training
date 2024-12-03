@@ -1,5 +1,7 @@
 const userModels = require("../model/userSchema");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const userRegister = async (req, res) => {
     try {
@@ -65,7 +67,15 @@ const userLogin = async (req, res) => {
         if (!checkPassword) {
             return res.status(500).send({ message: "password not match" });
         }
-        res.status(200).send("User login sucessfully");
+
+        const getToken = jwt.sign({ id: userInfo._id }, process.env.SECRETKEY, {
+            expiresIn: "7d"
+        });
+        res.status(200).send({
+            sucess: true,
+            message: "User login sucessfully",
+            getToken,
+        });
     } catch (error) {
         console.log("Falied to login:", error);
     }
