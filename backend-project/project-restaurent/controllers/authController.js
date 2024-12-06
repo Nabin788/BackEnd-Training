@@ -1,8 +1,9 @@
 const userModels = require("../model/userSchema");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
 const nodemailer = require("nodemailer");
+require("dotenv").config();
+
 
 const userRegister = async (req, res) => {
     try {
@@ -134,8 +135,6 @@ const sendOTP = async (req, res) => {
         }
 
         const userEmail = user.email;
-        const userOTP = user.otp;
-        const userId = user._id;
         if (userEmail != email) {
             return res.status(400).send("Please Enter valid email number");
         }
@@ -145,7 +144,7 @@ const sendOTP = async (req, res) => {
         const remainingTime = Math.ceil((expireAt - Date.now()) / (60 * 1000));
 
         const mail = nodemailer.createTransport({
-            host: "smtp.gmail.com",
+            host: process.env.HOST,
             port: 465,
             secure: true,
             auth: {
@@ -160,6 +159,7 @@ const sendOTP = async (req, res) => {
             subject: "Reset Your Password",
             html: `<h1>Your OTP to reset password: ${otpCode}. Please used given otp before ${remainingTime} minutes</h1>`
         });
+
         const getOTP = await mail.sendMail(userContent);
         if (!getOTP) {
             return res.status(400).send({
@@ -185,10 +185,10 @@ const sendOTP = async (req, res) => {
 
 const resetPassword = async (req, res) => {
     try {
-        
+
         const { otp, newPassword, confirmPassword } = req.body;
 
-        if(!otp || !newPassword || !confirmPassword){
+        if (!otp || !newPassword || !confirmPassword) {
             return res.status(400).send("Please provide required information.");
         }
 
@@ -198,6 +198,10 @@ const resetPassword = async (req, res) => {
             return res.status(400).send("Incorrect otp");
         }
 
+        if (userOtp.otpExpiresAt < Date.now()) {
+            return res.status(400).send("OTP has expired. Please request a new one.");
+        }
+
         if (newPassword != confirmPassword) {
             return res.status(400).send("confirm password not match.");
         }
@@ -205,7 +209,7 @@ const resetPassword = async (req, res) => {
         const userId = userOtp._id;
         const newUserPassword = await bcrypt.hash(newPassword, 10);
 
-        await userModels.findByIdAndUpdate(userId, { $set: {password: newUserPassword }});
+        await userModels.findByIdAndUpdate(userId, { $set: { password: newUserPassword } });
 
         res.status(201).send({
             sucess: true,
@@ -218,4 +222,4 @@ const resetPassword = async (req, res) => {
     }
 }
 
-module.exports = { userRegister, userLogin, updateUserPassword, sendOTP , resetPassword };
+module.exports = { userRegister, userLogin, updateUserPassword, sendOTP, resetPassword };
