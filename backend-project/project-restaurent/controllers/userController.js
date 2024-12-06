@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 const userModels = require("../model/userSchema.js");
 require("dotenv").config();
-const bcrypt = require("bcrypt");
 
 const getUser = async (req, res) => {
     try {
@@ -71,51 +70,4 @@ const updateUser = async (req, res) => {
     }
 }
 
-const updateUserPassword = async (req, res) => {
-    try {
-
-        const { oldPassword, newPassword, confirmPassword } = req.body;
-
-        if (!oldPassword || !newPassword || !confirmPassword) {
-            return res.status(400).send("Please provide required information");
-        }
-
-        if (newPassword != confirmPassword) {
-            return res.status(400).send("new password and confirm password does not match")
-        }
-
-        const authorization = req.headers.authorization;
-        const getUser = await authorization.split(" ")[1];
-        const decode = jwt.verify(getUser, process.env.SECRETKEY);
-        const userID = decode.id;
-
-        const userPassword = await userModels.findById(userID);
-        const getUserPassword = userPassword.password;
-
-        const checkPassword = await bcrypt.compare(oldPassword, getUserPassword);
-
-        if (!checkPassword) {
-            return res.status(400).send({
-                sucess: false,
-                message: "Wrong password, Please provide valid password"
-            });
-        }
-
-        const newUserPassword = await bcrypt.hash(newPassword, 10);
-
-        const updatePassword = await userModels.findByIdAndUpdate(userID, { $set: { password: newUserPassword } });
-        await updatePassword.save();
-        res.status(201).send({
-            sucess: true,
-            message: "Sucessfully update user password"
-        });
-    } catch (error) {
-        console.log(error);
-        res.status(500).send({
-            sucess: false,
-            message: "Failed to update user password"
-        });
-    }
-}
-
-module.exports = { getUser, updateUser, updateUserPassword };
+module.exports = { getUser, updateUser };
