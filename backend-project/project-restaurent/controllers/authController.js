@@ -48,22 +48,18 @@ const userRegister = async (req, res) => {
 const userLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
-        if (!email || !password) {
-            return res.status(500).send({
+        const userInfo = await userModels.findOne({ email });
+        if (!userInfo) {
+            return res.status(400).send({
                 sucess: false,
-                message: "Please provide required information"
+                message: "Failed to login user. Please provide valid user email and password"
             });
         }
-        const userInfo = await userModels.findOne({ email });
+
         const userEmail = userInfo.email;
         const userPassword = userInfo.password;
 
-        if (!userEmail) {
-            return res.status(500).send({ message: "User does not exit from given information." });
-        }
-
         const checkPassword = await bcrypt.compare(password, userPassword);
-
         if (!checkPassword) {
             return res.status(500).send({ message: "password not match" });
         }
