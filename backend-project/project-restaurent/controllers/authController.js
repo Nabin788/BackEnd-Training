@@ -222,4 +222,25 @@ const resetPassword = async (req, res) => {
     }
 }
 
-module.exports = { userRegister, userLogin, updateUserPassword, sendOTP, resetPassword };
+const deleteUser = async (req, res) => {
+    try {
+        const userID = req.params.id;
+        if (!userID) {
+            res.status(400).send("Fialed to get user id.");
+        }
+        const user = await userModels.findByIdAndDelete(userID);
+        res.status(200).send({
+            sucess: true,
+            message: "User deleted sucessfully."
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            sucess: false,
+            message: "Failed to delete user",
+            error
+        });
+    }
+}
+
+module.exports = { userRegister, userLogin, updateUserPassword, sendOTP, resetPassword, deleteUser };
