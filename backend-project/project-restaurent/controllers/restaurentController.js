@@ -53,11 +53,11 @@ const getRestaurent = async (req, res) => {
     }
 }
 
-const getRestaurentbyId = async(req, res) => {
+const getRestaurentbyId = async (req, res) => {
     try {
         const restID = req.params.id;
         const restaurent = await restaurentModel.find(restID);
-        if(!restaurent){
+        if (!restaurent) {
             res.status(400).send({
                 sucess: false,
                 messsage: "Restaurent not found"
@@ -69,7 +69,7 @@ const getRestaurentbyId = async(req, res) => {
         });
     } catch (error) {
         console.log(error);
-        
+
         res.status(500).send({
             sucess: false,
             message: "Failed to get restaurent"
@@ -77,4 +77,27 @@ const getRestaurentbyId = async(req, res) => {
     }
 }
 
-module.exports = { restaurentController, getRestaurent, getRestaurentbyId };
+const deleteRestaurent = async (req, res) => {
+    try {
+        const resId = req.params.id;
+        const getRestaurent = await restaurentModel.findByIdAndDelete(resId);
+        if (!getRestaurent) {
+            res.status(400).send({
+                sucess: false,
+                message: "Restaurent not found."
+            });
+        }
+
+        res.status(200).send({
+            sucess: true,
+            message: "Restaurent deleted sucessfully."
+        })
+    } catch (error) {
+        res.status(500).send({
+            sucess: false,
+            message: "Failed to delete restaurent."
+        });
+    }
+}
+
+module.exports = { restaurentController, getRestaurent, getRestaurentbyId, deleteRestaurent };
