@@ -4,6 +4,7 @@ const cors = require("cors");
 const dbConnect = require("./config/dbConnection");
 require("dotenv").config();
 const authRoutes = require("./routes/authRoutes.js");
+const restaurentRoutes = require("./routes/restaurentRoutes.js");
 
 const port = process.env.PORT || 5050;
 const app = express();
@@ -16,6 +17,7 @@ app.use(express.urlencoded({ extended: true}));
 app.use(morgan("dev"));
 
 app.use("/user", authRoutes);
+app.use("/data", restaurentRoutes);
 
 app.get("/", (req,res) => {
     res.send("Hello restaurent users");
