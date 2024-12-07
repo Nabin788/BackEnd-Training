@@ -16,7 +16,7 @@ const restaurentController = async (req, res) => {
         });
 
         await newRestaurent.save();
-console.log("Check 3");
+        console.log("Check 3");
 
         res.status(200).send({
             sucess: true,
@@ -31,4 +31,50 @@ console.log("Check 3");
     }
 }
 
-module.exports = restaurentController;
+const getRestaurent = async (req, res) => {
+    try {
+        const restaurent = await restaurentModel.find();
+        if (!restaurent) {
+            res.status(400).send({
+                sucess: false,
+                message: "restaurent not found"
+            });
+        }
+        res.status(200).send({
+            sucess: true,
+            message: restaurent
+
+        });
+    } catch (error) {
+        res.status(500).send({
+            sucess: false,
+            messsage: "failed to get restaurent"
+        });
+    }
+}
+
+const getRestaurentbyId = async(req, res) => {
+    try {
+        const restID = req.params.id;
+        const restaurent = await restaurentModel.find(restID);
+        if(!restaurent){
+            res.status(400).send({
+                sucess: false,
+                messsage: "Restaurent not found"
+            });
+        }
+        res.status(200).send({
+            sucess: true,
+            message: restaurent
+        });
+    } catch (error) {
+        console.log(error);
+        
+        res.status(500).send({
+            sucess: false,
+            message: "Failed to get restaurent"
+        });
+    }
+}
+
+module.exports = { restaurentController, getRestaurent, getRestaurentbyId };
