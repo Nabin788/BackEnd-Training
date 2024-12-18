@@ -4,18 +4,22 @@ const http = require("http");
 const socket = require("socket.io");
 const path = require("path");
 
-
 // instance of express server
 const app = express();
 const server = http.createServer(app);
 const io = socket(server);
 
+// define front end route
+const public = path.join(__dirname, "./public");
+app.use(express.static(public));
+app.use(express.json());
+
 // define port
 const port = 2020;
 
 // Root route
-app.get("/", (req,res) => {
-    res.send("Chat App");
+app.get("/", (req, res) => {
+    res.sendFile("index");
 });
 
 // listen server
