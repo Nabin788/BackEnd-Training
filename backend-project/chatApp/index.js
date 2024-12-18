@@ -22,6 +22,16 @@ app.get("/", (req, res) => {
     res.sendFile("index");
 });
 
+// established socket connection
+io.on("connection", (client) => {
+    console.log("Client Connected to server");
+
+    client.on("disconnect", () => {
+        console.log("Client disconnected from server");
+        
+    })
+});
+
 // listen server
 server.listen(port, () => {
     console.log(`http://localhost:${port}`);
