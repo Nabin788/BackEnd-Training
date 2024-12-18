@@ -26,6 +26,15 @@ app.get("/", (req, res) => {
 io.on("connection", (client) => {
     console.log("Client Connected to server");
 
+    // data send from server to client
+    client.emit("message", "Welcome to my chat app client");
+
+    // received data from client
+    client.on("client_message", (message) => {
+        console.log(message);
+    });
+
+    // client disconnected from server
     client.on("disconnect", () => {
         console.log("Client disconnected from server");
         
